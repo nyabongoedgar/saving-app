@@ -1,0 +1,7 @@
+#NPM
+package-lock.json
+
+#Node Modules
+node_modules
+.idea
+.env
