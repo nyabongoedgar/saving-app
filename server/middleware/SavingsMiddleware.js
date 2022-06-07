@@ -11,7 +11,7 @@ const savingsValidation = {
 
 // write middleware that will do https://trello.com/c/BuR0YJh7
 
-const validateSavingsDates = (req, res, next) => {
+const validateSavingsDates = async (req, res, next) => {
   try {
     const {date} = req.body;
     const dateInCheck = new Date(date)

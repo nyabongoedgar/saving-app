@@ -1,5 +1,5 @@
 const express = require("express");
-const { Joi } = require("express-validation");
+const { validate } = require("express-validation");
 const router = express.Router();
 const savingsController = require("../controllers/SavingsController");
 const authMiddleware = require("../middleware/AuthMiddleware");

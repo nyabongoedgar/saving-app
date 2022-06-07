@@ -31,4 +31,4 @@ app.listen(process.env.LISTEN_PORT || 3000, () => {
   console.log("Backend server is running on port:", process.env.LISTEN_PORT);
 });
 
-export default app;
+module.exports = app;

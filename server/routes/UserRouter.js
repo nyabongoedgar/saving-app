@@ -13,7 +13,7 @@ router.post(
   validate(userRegistrationValidation, {}, {}),
   userController.createUser
 );
-router.put(
+router.post(
   "/authenticate",
   validate(userAuthenticationValidation, {}, {}),
   userController.authenticateUser

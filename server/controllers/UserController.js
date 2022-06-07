@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const UserModel = require("../models/UserModel");
+const {
+  generateHashedPassword,
+  generateAccessToken,
+} = require("../utils/auth");
 
 const createUser = async (req, res, next) => {
   try {
@@ -13,7 +17,7 @@ const createUser = async (req, res, next) => {
       });
     }
     // hash password
-    const hashedPassword = await bcrypt.hash(password, 5);
+    const hashedPassword = generateHashedPassword(password);
     const result = await UserModel.create({
       email,
       username,
@@ -39,7 +43,8 @@ const authenticateUser = async (req, res, next) => {
     // compare password
     const result = await bcrypt.compare(password, user.password);
     if (result) {
-      return res.status(201).json({ token: "" });
+      const token = generateAccessToken({ ...user });
+      return res.status(200).json({ token });
     }
   } catch (error) {
     next(error);
