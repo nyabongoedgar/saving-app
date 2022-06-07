@@ -3,12 +3,16 @@ const { Joi } = require("express-validation");
 const router = express.Router();
 const savingsController = require("../controllers/SavingsController");
 const authMiddleware = require("../middleware/AuthMiddleware");
-const { savingsValidation } = require("../middleware/SavingsMiddleware");
+const {
+  savingsValidation,
+  validateSavingsDates,
+} = require("../middleware/SavingsMiddleware");
 
 router.post(
   "/",
   validate(savingsValidation, {}, {}),
   authMiddleware,
+  validateSavingsDates,
   savingsController.createSaving
 );
 
