@@ -17,5 +17,6 @@ router.post(
 );
 
 router.get("/", authMiddleware, savingsController.getSavings);
+router.get("/:id", authMiddleware, savingsController.getSaving);
 
 module.exports = router;

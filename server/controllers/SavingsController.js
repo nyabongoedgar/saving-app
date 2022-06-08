@@ -9,7 +9,7 @@ const createSaving = async (req, res, next) => {
       amount,
       description,
       date: new Date(date),
-      userId: req.userId,
+      userId: mongoose.Types.ObjectId(req.userId),
     });
     res
       .status(201)
@@ -24,15 +24,24 @@ const getSavings = async (req, res, next) => {
     const results = await SavingsModel.find({
       userId: req.userId,
     });
-    res
-      .status(201)
-      .json({ savings: results, message: "Savings retrieved successfully" });
+    res.status(200).json({ savings: results });
   } catch (error) {
     next(error);
   }
 };
 
+const getSaving = async (req, res, next) => {
+  try {
+    const saving = await SavingsModel.findOne({
+      id: mongoose.Types.ObjectId(req.params.id),
+    });
+    res.status(200).json({ saving });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   createSaving,
   getSavings,
+  getSaving,
 };

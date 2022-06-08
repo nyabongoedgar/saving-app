@@ -43,7 +43,7 @@ const authenticateUser = async (req, res, next) => {
     // compare password
     const result = await bcrypt.compare(password, user.password);
     if (result) {
-      const token = generateAccessToken({ ...user });
+      const token = generateAccessToken({ ...user._doc });
       return res.status(200).json({ token });
     }
   } catch (error) {

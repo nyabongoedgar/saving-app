@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
         type: err.name || "TokenExpiredError",
       });
     }
-    req.userId = user.id;
+    req.userId = user._id;
     next(); // pass the execution off to whatever request the client intended
   });
 };
