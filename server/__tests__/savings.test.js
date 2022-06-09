@@ -32,9 +32,33 @@ describe("test savings api", () => {
         date: new Date(),
         description: "today's saving",
       });
+    expect(response.statusCode).toBe(201);
+    expect(response.body.saving).toHaveProperty("amount");
+  });
 
-      console.log(response, 'response')
-    //   expect(response.statusCode).toBe(201);
-    //   expect(response.body.saving).toHaveProperty("amount")
+  it("fails to create a saving for yesterday or past date", async () => {
+    const response = await request(app)
+      .post("/api/savings")
+      .set("Authorization", `Bearer ${auth?.token}`)
+      .send({
+        amount: 1000,
+        date: new Date("2022-06-08T23:59:59.999Z"),
+        description: "past date saving",
+      });
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("fails to create a saving for tommorrow", async () => {
+    const ms = new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 172800000;
+    const tomorrow = new Date(ms);
+    const response = await request(app)
+      .post("/api/savings")
+      .set("Authorization", `Bearer ${auth?.token}`)
+      .send({
+        amount: 1000,
+        date: tomorrow,
+        description: "saving for tomorrow",
+      });
+    expect(response.statusCode).toBe(400);
   });
 });

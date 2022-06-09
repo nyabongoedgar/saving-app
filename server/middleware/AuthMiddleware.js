@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
   if (token == null) return res.sendStatus(401); // if there isn't any token
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log(err);
     if (err) {
       return res.status(403).json({
         message: err.message || "jwt expired",

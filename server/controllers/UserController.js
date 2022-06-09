@@ -37,7 +37,7 @@ const authenticateUser = async (req, res, next) => {
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        error: "valid user id is required!",
+        error: "Failed to login, check provided credentials!",
       });
     }
     // compare password
@@ -45,6 +45,10 @@ const authenticateUser = async (req, res, next) => {
     if (result) {
       const token = generateAccessToken({ ...user._doc });
       return res.status(200).json({ token });
+    } else {
+      return res.status(400).json({
+        message: "Failed to login, check provided credentials!",
+      });
     }
   } catch (error) {
     next(error);
