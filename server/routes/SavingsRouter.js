@@ -1,22 +1,23 @@
-const express = require("express");
-const { validate } = require("express-validation");
+const express = require('express');
+const { validate } = require('express-validation');
+
 const router = express.Router();
-const savingsController = require("../controllers/SavingsController");
-const authMiddleware = require("../middleware/AuthMiddleware");
+const savingsController = require('../controllers/SavingsController');
+const authMiddleware = require('../middleware/AuthMiddleware');
 const {
   savingsValidation,
   validateSavingsDates,
-} = require("../middleware/SavingsMiddleware");
+} = require('../middleware/SavingsMiddleware');
 
 router.post(
-  "/",
+  '/',
   validate(savingsValidation, {}, {}),
   authMiddleware,
   validateSavingsDates,
-  savingsController.createSaving
+  savingsController.createSaving,
 );
 
-router.get("/", authMiddleware, savingsController.getSavings);
-router.get("/:id", authMiddleware, savingsController.getSaving);
+router.get('/', authMiddleware, savingsController.getSavings);
+router.get('/:id', authMiddleware, savingsController.getSaving);
 
 module.exports = router;

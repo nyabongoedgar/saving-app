@@ -1,6 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const SavingsModel = require("../models/SavingsModel");
+const mongoose = require('mongoose');
+const SavingsModel = require('../models/SavingsModel');
 
 const createSaving = async (req, res, next) => {
   try {
@@ -13,7 +12,7 @@ const createSaving = async (req, res, next) => {
     });
     res
       .status(201)
-      .json({ saving: result, message: "Saving created successfully" });
+      .json({ saving: result, message: 'Saving created successfully' });
   } catch (error) {
     next(error);
   }

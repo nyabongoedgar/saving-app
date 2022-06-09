@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const savingsSchema = new mongoose.Schema(
   {
@@ -10,7 +10,7 @@ const savingsSchema = new mongoose.Schema(
 
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model("Savings", savingsSchema);
+module.exports = mongoose.model('Savings', savingsSchema);

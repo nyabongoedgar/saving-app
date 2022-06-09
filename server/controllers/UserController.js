@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const UserModel = require("../models/UserModel");
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable consistent-return */
+const bcrypt = require('bcrypt');
+const UserModel = require('../models/UserModel');
 const {
   generateHashedPassword,
   generateAccessToken,
-} = require("../utils/auth");
+} = require('../utils/auth');
 
 const createUser = async (req, res, next) => {
   try {
@@ -13,7 +14,7 @@ const createUser = async (req, res, next) => {
     const user = await UserModel.findOne({ email });
     if (user) {
       return res.status(400).json({
-        error: "User with this email is already registered!",
+        error: 'User with this email is already registered!',
       });
     }
     // hash password
@@ -25,7 +26,7 @@ const createUser = async (req, res, next) => {
     });
     res
       .status(201)
-      .json({ user: result, message: "User created successfully" });
+      .json({ user: result, message: 'User created successfully' });
   } catch (error) {
     next(error);
   }
@@ -37,7 +38,7 @@ const authenticateUser = async (req, res, next) => {
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        error: "Failed to login, check provided credentials!",
+        error: 'Failed to login, check provided credentials!',
       });
     }
     // compare password
@@ -45,11 +46,10 @@ const authenticateUser = async (req, res, next) => {
     if (result) {
       const token = generateAccessToken({ ...user._doc });
       return res.status(200).json({ token });
-    } else {
-      return res.status(400).json({
-        message: "Failed to login, check provided credentials!",
-      });
     }
+    return res.status(400).json({
+      message: 'Failed to login, check provided credentials!',
+    });
   } catch (error) {
     next(error);
   }

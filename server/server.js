@@ -1,6 +1,6 @@
-const dotenv = require("dotenv");
-const app = require("./app");
-const winston = require("winston");
+const dotenv = require('dotenv');
+const winston = require('winston');
+const app = require('./app');
 
 dotenv.config();
 

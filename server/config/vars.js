@@ -1,4 +1,5 @@
 const path = require('path');
+const logger = require('./logger');
 
 // import .env variables
 require('dotenv-safe').config({
@@ -6,7 +7,7 @@ require('dotenv-safe').config({
   example: path.join(__dirname, '../.env.example'),
 });
 
-console.log( path.join(__dirname, '/.env'), 'env location')
+logger.info(path.join(__dirname, '/.env'), 'env location');
 
 module.exports = {
   env: process.env.NODE_ENV,
