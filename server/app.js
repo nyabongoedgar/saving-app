@@ -27,7 +27,7 @@ app.use(error.notFound);
 // error handler, send stacktrace only during development
 app.use(error.handler);
 
-app.listen(process.env.LISTEN_PORT || 3000, () => {
+app.listen(process.env.LISTEN_PORT, () => {
   console.log("Backend server is running on port:", process.env.LISTEN_PORT);
 });
 

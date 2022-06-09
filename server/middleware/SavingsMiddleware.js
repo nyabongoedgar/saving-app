@@ -9,36 +9,42 @@ const savingsValidation = {
   }),
 };
 
-// write middleware that will do https://trello.com/c/BuR0YJh7
-
 const validateSavingsDates = async (req, res, next) => {
   try {
-    const {date} = req.body;
-    const dateInCheck = new Date(date)
+    const { date } = req.body;
+    const dateInCheck = new Date(date);
 
-    // make sure date is not past today
-    const ms = new Date(new Date().setHours(0,0,0,0)).getTime() + 172800000;
+    const ms = new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 172800000;
     const tomorrow = new Date(ms);
-
-    if(dateInCheck >= tomorrow){
-      return res.status(403).json({
-        message: "You cannot deposit to your savings account for the next day"
-      })
+    const _ms =
+      new Date(new Date().setHours(14, 59, 59, 999)).getTime() - 43200000;
+    const yesterday = new Date(_ms);
+    // date should not be greater or equal to tomorrow
+    if (dateInCheck >= tomorrow) {
+      return res.status(400).json({
+        message: "You cannot deposit to your savings account for the next day",
+      });
     }
 
-    // we fail insert if date is tomorrow
-    const today  = new Date(new Date(new Date().setHours(0,0,0,0)).getTime() + 86400000);
-  
+    const today = new Date(
+      new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 86400000
+    );
+
     // make sure no record for today exists
-    const saving = await SavingsModel.findOne({ date: {  $gte: today, $lt: tomorrow }, userId: req.userId})
-    if(saving){
-      return res.status(403).json({
-        message: 'You can only deposit to your savings account once a day'
-      })
-    } else if( new Date(date) < new Date()){
-      return res.status(403).json({
-        message: 'You cannot make a deposit for a past date'
-      })
+    const saving = await SavingsModel.findOne({
+      date: { $gte: today, $lt: tomorrow },
+      userId: req.userId,
+    });
+    if (saving) {
+      return res.status(400).json({
+        message: "You can only deposit to your savings account once a day",
+      });
+    }
+    // we have got to make sure that the dateInCheck should not be yesterday or anyother day
+    else if (dateInCheck <= yesterday) {
+      return res.status(400).json({
+        message: "You cannot make a deposit for a past date",
+      });
     }
     next();
   } catch (error) {
