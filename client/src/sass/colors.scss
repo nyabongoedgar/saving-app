@@ -1,0 +1,118 @@
+$white: #fff;
+$off-white: #fafafa;
+$hover-white: #eeeeee;
+$sec-black: #121212;
+$charcoal: #8a8a8a;
+$black: #000000;
+$yellow: #fff5cc;
+$prim-yellow: #fecf07;
+$skamy-gray: #6c6c6c;
+$accent-green: #0ab155;
+$red: #ff0000;
+$faint-accent-green: #E2FDEE;
+
+.white {
+  color: $white !important;
+}
+
+.white-bg {
+  background: $white !important;
+  color: $black !important;
+}
+
+.off-white {
+  color: $off-white;
+}
+
+.off-white-bg {
+  color: $black;
+  background: $off-white;
+}
+
+.hover-white {
+  color: $hover-white !important;
+}
+
+.hover-white-bg {
+  background: $hover-white !important;
+  color: $black !important;
+}
+
+.charcoal {
+  color: $charcoal !important;
+}
+
+.charcoal-bg {
+  background: $charcoal !important;
+  color: $white !important;
+}
+
+.sec-black {
+  color: $sec-black !important;
+}
+
+.sec-black-bg {
+  background: $sec-black !important;
+  color: $white !important;
+}
+
+.black {
+  color: $sec-black !important;
+}
+
+.black-bg {
+  background: $black !important;
+  color: $white !important;
+}
+
+.yellow {
+  color: $sec-black !important;
+}
+
+.yellow-bg {
+  background: $yellow !important;
+  color: $black !important;
+}
+
+.prim-yellow {
+  color: $sec-black !important;
+}
+
+.prim-yellow-bg {
+  background: $prim-yellow !important;
+  color: $black !important;
+  font-weight: bold;
+}
+
+.skamy-gray {
+  color: $skamy-gray !important;
+}
+
+.skamy-gray-bg {
+  background: $skamy-gray !important;
+  color: $white !important;
+}
+
+.accent-green {
+  color: $accent-green;
+}
+
+.accent-green {
+  background: $accent-green;
+}
+
+.red {
+  color: $red!important;
+}
+
+.red-bg {
+  background-color: $red!important;
+}
+
+.faint-accent-green {
+  color: $faint-accent-green;
+}
+
+.faint-accent-green-bg {
+  background: $faint-accent-green;
+}

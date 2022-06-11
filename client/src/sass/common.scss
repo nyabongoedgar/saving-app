@@ -1,0 +1,13 @@
+.ant-btn {
+    padding: 12px 20px;
+    height: unset !important;
+    background: transparent;
+    font-weight: normal;
+    font-style: normal;
+    min-width: 100px !important;
+    border-radius: 5px;
+  
+    &.btn-block {
+      width: 100% !important;
+    }
+}

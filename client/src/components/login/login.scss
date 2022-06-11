@@ -1,0 +1,15 @@
+.form-container {
+    padding: 50px;
+    border-radius: 4px;
+
+    .login-form-input {
+        border: 1px solid #caced1 !important;
+        border-radius: 5px !important;
+        padding: 12px 20px !important;
+        width: 400px !important;
+        &:hover {
+            // border-color: $charcoal;
+        }
+    }
+
+}
