@@ -6,17 +6,22 @@ import YellowButton from "../common/button/Button";
 
 import { registerUser } from "../../redux/actions/authActions";
 import "../login/login.scss";
+import notify from "../../helpers/notification";
 
 const { Title } = Typography;
 
 const Register = () => {
-    const {loading} = useSelector(state => state.register)
+  const { loading } = useSelector((state) => state.register);
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    const { email, password } = values;
+    const { email, password, confirm_password } = values;
+    if (confirm_password !== password) {
+      notify("error", "Password mismatch!", "Passwords donot match");
+      return;
+    }
     dispatch(registerUser({ email, password }));
   };
 
