@@ -20,6 +20,7 @@ const createSaving = async (req, res, next) => {
 
 const getSavings = async (req, res, next) => {
   try {
+    // await SavingsModel.deleteMany({})
     const results = await SavingsModel.find({
       userId: req.userId,
     });

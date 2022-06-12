@@ -18,6 +18,6 @@ export const CREATE_SAVING = defineAction('CREATE_SAVING', [ "INIT",
 "SUCCESS",
 "ERROR"])
 
-export const GET_SAVINGS = defineAction('CREATE_SAVING', [ "INIT",
+export const GET_SAVINGS = defineAction('GET_SAVINGS', [ "INIT",
 "SUCCESS",
 "ERROR"])

@@ -3,18 +3,19 @@ import * as actions from "./actionCreators/savingsCreators";
 import notify from "../../helpers/notification";
 
 export const createSaving =
-  ({ amount, date, description }) =>
+  ({ amount, date, description }, callBack) =>
   async (dispatch) => {
     dispatch(actions.createSavingInit());
-    const body = { amount, date, description };
+    const body = { amount, date: new Date(date), description };
     try {
-      await axiosInstance.post("/api/v1/savings", body);
-      dispatch(actions.createSavingSuccess());
+      const res = await axiosInstance.post("/api/v1/savings", body);
+      dispatch(actions.createSavingSuccess(res.data));
       notify("success", "Saving successfully captured");
+      callBack && callBack();
     } catch (error) {
       if (error.response) {
-        dispatch(actions.createSavingError(error.response.data.error));
-        notify("error", "Registration Error", error.response.data.error);
+        dispatch(actions.createSavingError(error.response.data.message));
+        notify("error", "Deposit Error", error.response.data.message);
       } else {
         dispatch(actions.createSavingError(`${error}`));
       }
@@ -30,7 +31,7 @@ export const getSavings = () => async (dispatch) => {
   } catch (error) {
     if (error.response) {
       dispatch(actions.getSavingsError(error.response.data.error));
-      notify("error", "Registration Error", error.response.data.error);
+      notify("error", "Savings Error", error.response.data.error);
     } else {
       dispatch(actions.getSavingsError(`${error}`));
     }

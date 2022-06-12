@@ -1,9 +1,10 @@
-import {GET_SAVINGS} from '../actions/actionTypes';
+import {GET_SAVINGS, CREATE_SAVING} from '../actions/actionTypes';
   
   const savingsInitialState = {
     savings: [],
     error: null,
     loading: false,
+    addStatus: false,
   };
   
   const SavingsReducer = (state = savingsInitialState, action) => {
@@ -27,6 +28,25 @@ import {GET_SAVINGS} from '../actions/actionTypes';
         error: action.payload.error,
       };
  
+    
+      case CREATE_SAVING.INIT:
+        return {
+          ...state,
+          addStatus: true,
+        };
+      case CREATE_SAVING.SUCCESS:
+        // eslint-disable-next-line no-case-declarations
+        return {
+          ...state,
+          addStatus: false,
+          savings: [action.payload.saving, ...state.savings],
+        };
+      case CREATE_SAVING.ERROR:
+        return {
+          ...state,
+          addStatus: false,
+          error: action.payload.error,
+        };
     default:
       return state;
     }
