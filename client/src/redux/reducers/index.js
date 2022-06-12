@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import auth from './auth.reducer';
 import register from './register.reducer';
+import savings from './savings.reducer';
 
 import {
   LOGOUT_USER,
@@ -10,6 +11,7 @@ import {
 const appReducer = combineReducers({
   auth,
   register,
+  savings,
 });
 
 const rootReducer = (state, action) => {

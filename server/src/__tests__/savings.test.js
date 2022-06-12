@@ -25,7 +25,7 @@ describe('test savings api', () => {
 
   it('creates a saving', async () => {
     const response = await request(app)
-      .post('/api/savings')
+      .post('/api/v1/savings')
       .set('Authorization', `Bearer ${auth?.token}`)
       .send({
         amount: 1000,
@@ -38,7 +38,7 @@ describe('test savings api', () => {
 
   it('fails to create a saving for yesterday or past date', async () => {
     const response = await request(app)
-      .post('/api/savings')
+      .post('/api/v1/savings')
       .set('Authorization', `Bearer ${auth?.token}`)
       .send({
         amount: 1000,
@@ -52,7 +52,7 @@ describe('test savings api', () => {
     const ms = new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 172800000;
     const tomorrow = new Date(ms);
     const response = await request(app)
-      .post('/api/savings')
+      .post('/api/v1/savings')
       .set('Authorization', `Bearer ${auth?.token}`)
       .send({
         amount: 1000,

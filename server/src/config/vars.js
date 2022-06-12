@@ -3,8 +3,8 @@ const logger = require('./logger');
 
 // import .env variables
 require('dotenv-safe').config({
-  path: path.join(__dirname, '../.env'),
-  example: path.join(__dirname, '../.env.example'),
+  path: path.join(__dirname, '../../.env'),
+  example: path.join(__dirname, '../../.env.example'),
 });
 
 logger.info(path.join(__dirname, '/.env'), 'env location');

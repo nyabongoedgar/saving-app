@@ -13,25 +13,23 @@ describe('test api', () => {
   });
 
   it('creates a new user', async () => {
-    const response = await request(app).post('/api/users/register').send({
+    const response = await request(app).post('/api/v1/users/register').send({
       email: 'test@gmail.com',
       password: 'password',
-      username: 'test',
     });
     expect(response.statusCode).toBe(201);
     expect(response.body.message).toBe('User created successfully');
   });
 
   it('fails to create a user with a missing password', async () => {
-    const response = await request(app).post('/api/users/register').send({
+    const response = await request(app).post('/api/v1/users/register').send({
       email: 'test@gmail.com',
-      username: 'test',
     });
     expect(response.statusCode).toBe(400);
   });
 
   it('logins in a new user', async () => {
-    const response = await request(app).post('/api/users/authenticate').send({
+    const response = await request(app).post('/api/v1/users/authenticate').send({
       email: 'test@gmail.com',
       password: 'password',
     });
@@ -40,7 +38,7 @@ describe('test api', () => {
   });
 
   it('fails to login with invalid credentials', async () => {
-    const response = await request(app).post('/api/users/authenticate').send({
+    const response = await request(app).post('/api/v1/users/authenticate').send({
       email: 'test@gmail.com',
       password: 'password2020',
     });

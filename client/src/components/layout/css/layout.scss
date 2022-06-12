@@ -1,0 +1,91 @@
+.anticon {
+    img {
+      width: 20px;
+    }
+  }
+  
+  #main-header {
+    background: #ffffff;
+  }
+  
+  #side-menu {
+    .logo {
+      height: 32px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 16px 16px 64px 16px;
+      position: relative;
+  
+      #logo-text {
+        font-weight: bold;
+      }
+  
+      .logo-icon {
+        &.right {
+          transform: matrix(-1, 0, 0, 1, 0, 0);
+        }
+      }
+    }
+  
+    .site-layout-bg {
+      // background: #fff;
+    }
+  
+    .ant-menu {
+      .ant-menu-item {
+        margin-bottom: 16px;
+        width: 160px;
+        height: 56px;
+        border-radius: 5px;
+        margin: 10px auto;
+  
+        a:hover {
+          color: #000;
+          font-size: 15px;
+        }
+  
+        &:after {
+          border-right: none !important;
+        }
+  
+        &:active {
+          background: #fff;
+        }
+  
+        &.ant-menu-item-selected {
+          color: #fff;
+          background: #121212;
+  
+          a,
+          a:hover {
+            color: #fff !important;
+          }
+        }
+  
+        .ant-menu-title-content {
+          display: flex;
+          align-items: flex-start;
+        }
+      }
+  
+      &.ant-menu-inline-collapsed {
+        .ant-menu-item {
+          width: 56px !important;
+          padding: 0 calc(50% - 20px);
+        }
+      }
+    }
+  }
+  
+  .ant-menu-inline-collapsed-tooltip {
+    .ant-tooltip-inner {
+      a.nav-text {
+        color: #fff !important;
+      }
+    }
+  }
+  
+  // font sizes
+  .f-30 {
+    font-size: 30px;
+  }
+  

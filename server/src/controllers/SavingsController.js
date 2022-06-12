@@ -33,6 +33,7 @@ const getSaving = async (req, res, next) => {
   try {
     const saving = await SavingsModel.findOne({
       id: mongoose.Types.ObjectId(req.params.id),
+      userId: req.userId,
     });
     res.status(200).json({ saving });
   } catch (error) {

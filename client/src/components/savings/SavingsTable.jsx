@@ -1,8 +1,25 @@
 import React from "react";
-import PageTable from "../common/table/Table";
+import { Table } from "antd";
 
-const SavingsTable = ({ dataSource, columns }) => {
-  return <PageTable dataSource={dataSource} columns={columns} />;
+const SavingsTable = ({ dataSource, loading }) => {
+  const columns = [
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "Date deposited",
+      dataIndex: "date",
+      key: "date",
+    },
+  ];
+  return <Table dataSource={dataSource} columns={columns} loading={loading} />;
 };
 
 export default SavingsTable;

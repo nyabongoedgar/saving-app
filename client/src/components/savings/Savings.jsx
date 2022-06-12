@@ -1,15 +1,25 @@
-import React from "react";
-import { Tabs, Button } from "antd";
+import React, {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Tabs, Space } from "antd";
 import SavingsTable from "./SavingsTable";
+import YellowButton from "../common/button/Button";
+import OutlinedButton from "../common/button/OutlinedButton";
+import {getSavings} from "../../redux/actions/savingsActions"
 
 const TabPane = Tabs.TabPane;
 
 const Savings = () => {
+  const dispatch = useDispatch();
+  const {loading, savings} = useSelector(state => state.savings);
+  useEffect(() => {
+    dispatch(getSavings())
+  }, [])
+
   const tableOperations = (
-    <>
-      <Button>Export</Button>
-      <Button>Add saving</Button>
-    </>
+    <Space className="layout horizontal wrap table-operations">
+      <OutlinedButton text="Export" />
+      <YellowButton text="Add Saving" />
+    </Space>
   );
   return (
     <>
@@ -20,7 +30,7 @@ const Savings = () => {
         className="pills"
       >
         <TabPane tab="Savings" key="1">
-         <SavingsTable dataSource={[]} columns={[]} />
+          <SavingsTable dataSource={savings} loading={loading} />
         </TabPane>
       </Tabs>
     </>

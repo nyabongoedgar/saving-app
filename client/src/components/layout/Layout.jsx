@@ -7,9 +7,10 @@ import SideMenu from './SideMenu';
 import MainHeader from './MainHeader';
 import Footer from './Footer';
 import MainContent from './MainContent';
+import './css/layout.scss';
 
 export default function LayoutContainer() {
-  const { user, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
   const [collapsed, setCollapsed] = useState(false);
 
   const toggle = () => setCollapsed(!collapsed);
@@ -17,9 +18,9 @@ export default function LayoutContainer() {
   return (
     <Layout style={{ height: '100%' }}>
       {loading && <Skeleton />}
-      {!loading && !!user && (
+      {!loading && (
         <>
-          <SideMenu collapsed={collapsed} user={user} toggle={toggle} />
+          <SideMenu collapsed={collapsed} user={null} toggle={toggle} />
           <Layout style={{ position: 'relative', overflow: 'auto' }} className="off-white-bg">
             <MainHeader
               style={{ minHeight: 'unset' }}

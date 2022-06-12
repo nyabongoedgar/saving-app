@@ -3,31 +3,23 @@ import * as actions from "./actionCreators/authCreators";
 import notify from "../../helpers/notification";
 
 export const loginUser =
-  ({ username, password }) =>
+  ({ email, password }) =>
   async (dispatch) => {
     dispatch(actions.loginUserInit());
 
-    const body = { username, password };
-    // simulate a success login
-    if (process.env.REACT_APP_ENV === "testing") {
-      localStorage.setItem("token", "access_token");
-      await dispatch(actions.loginUserSuccess());
-    } else {
-      try {
-        const res = await axiosInstance.post(
-          "/api/v1/users/authenticate",
-          body
-        );
-        localStorage.setItem("token", res.data.token);
-        dispatch(actions.loginUserSuccess());
-      } catch (error) {
-        if (error.response) {
-          localStorage.removeItem("token");
-          dispatch(actions.loginUserError(error.response.data.detail));
-          notify("error", "Authentication error", error.response.data.detail);
-        } else {
-          dispatch(actions.loginUserError(`${error}`));
-        }
+    const body = { email, password };
+    console.log(body, 'body')
+    try {
+      const res = await axiosInstance.post("/api/v1/users/authenticate", body);
+      localStorage.setItem("token", res.data.token);
+      dispatch(actions.loginUserSuccess());
+    } catch (error) {
+      if (error.response) {
+        localStorage.removeItem("token");
+        notify("error", "Authentication error", error.response.data.error);
+        dispatch(actions.loginUserError(error.response.data.error));
+      } else {
+        dispatch(actions.loginUserError(`${error}`));
       }
     }
   };

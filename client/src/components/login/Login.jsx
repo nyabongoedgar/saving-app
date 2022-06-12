@@ -44,13 +44,13 @@ const Login = () => {
             layout="vertical"
           >
             <Form.Item
-              label="Username"
+              label="Email"
               name="email"
               className="bold"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Username!",
+                  message: "Please input your Email!",
                 },
               ]}
             >

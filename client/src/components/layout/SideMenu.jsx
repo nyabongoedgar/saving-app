@@ -1,17 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Layout, Menu } from "antd";
-// import { logoutUser } from "../../redux/actions/authActions";
+import { logoutUser } from "../../redux/actions/authActions";
+import BarChart from "../../assets/icons/BarChart";
+import LogoutIcon from "../../assets/icons/Logout";
 
 const { Sider } = Layout;
 
 // eslint-disable-next-line react/prop-types
 function SideMenu({ collapsed, user, toggle }) {
   const location = useLocation();
-//   const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
   let menuItems = [];
 
   const getMenuItemProps = ({
@@ -37,27 +38,22 @@ function SideMenu({ collapsed, user, toggle }) {
       order,
     };
   };
-
   const dashboard = {
     path: "/",
     name: "Dashboard",
     key: "dashboard",
+    defaultIcon: <BarChart />,
+    selectedIcon: <BarChart color="white" />,
     order: 1,
-  };
-
-  const logout = {
-    path: "/logout",
-    name: "Log Out",
-    // icon: <Logout />,
   };
 
   const dashboardProps = getMenuItemProps(dashboard);
 
   const getSortedItems = (arr) => arr.sort((v1, v2) => v1.order - v2.order);
 
-  const NormalUser = getSortedItems([dashboardProps]);
+  const normalUserItems = getSortedItems([dashboardProps]);
 
-  menuItems = NormalUser;
+  menuItems = normalUserItems;
 
   const getSelectedItem = () =>
     menuItems
@@ -91,16 +87,17 @@ function SideMenu({ collapsed, user, toggle }) {
             className="layout horizontal center start"
           >
             <NavLink className="nav-text" to={item.path}>
-             {item.key}
+              {item.name}
             </NavLink>
           </Menu.Item>
         ))}
+
         <Menu.Item
-          key={logout.path}
-          icon={logout.icon}
+          key={"logout"}
           className="layout horizontal center start"
           style={{ bottom: "40px", position: "absolute" }}
-        //   onClick={() => dispatch(logoutUser())}
+          icon={<LogoutIcon />}
+          onClick={() => dispatch(logoutUser())}
         >
           <NavLink className="nav-text" to="">
             Logout

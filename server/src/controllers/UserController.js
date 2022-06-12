@@ -9,7 +9,7 @@ const {
 
 const createUser = async (req, res, next) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, password } = req.body;
 
     const user = await UserModel.findOne({ email });
     if (user) {
@@ -21,7 +21,6 @@ const createUser = async (req, res, next) => {
     const hashedPassword = generateHashedPassword(password);
     const result = await UserModel.create({
       email,
-      username,
       password: hashedPassword,
     });
     res

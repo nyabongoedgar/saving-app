@@ -44,18 +44,18 @@ const Register = () => {
             layout="vertical"
           >
             <Form.Item
-              label="Username"
+              label="Email"
               name="email"
               className="bold"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Username!",
+                  message: "Please input your Email!",
                 },
               ]}
             >
               <Input
-                placeholder="Enter your email or email"
+                placeholder="Enter your Email"
                 allowClear
                 className="login-form-input"
               />
