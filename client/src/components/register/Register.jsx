@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Row, Col, Input, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import YellowButton from "../common/button/Button";
 
@@ -13,8 +13,11 @@ const { Title } = Typography;
 const Register = () => {
   const { loading } = useSelector((state) => state.register);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [form] = Form.useForm();
+
+  const callBack = () => history.push("/login");
 
   const onFinish = async (values) => {
     const { email, password, confirm_password } = values;
@@ -22,7 +25,7 @@ const Register = () => {
       notify("error", "Password mismatch!", "Passwords donot match");
       return;
     }
-    dispatch(registerUser({ email, password }));
+    dispatch(registerUser({ email, password }, callBack));
   };
 
   return (
@@ -75,6 +78,7 @@ const Register = () => {
                 name="password"
                 placeholder="Enter your password"
                 className="login-form-input"
+                autoComplete="new-password"
               />
             </Form.Item>
             <Form.Item
@@ -92,6 +96,7 @@ const Register = () => {
                 name="confirm_password"
                 placeholder="Confirm password"
                 className="login-form-input"
+                autoComplete="new-password"
               />
             </Form.Item>
 
@@ -103,9 +108,11 @@ const Register = () => {
                 disabled={loading}
               />
             </Form.Item>
-            <Link to="/login">
-              <span className="bottom-text">Have an account ?, Login</span>
-            </Link>
+            <div className="layout horizontal center-justified center-center">
+              <Link to="/login">
+                <span className="bottom-text">Have an account ?, Login</span>
+              </Link>
+            </div>
           </Form>
         </div>
       </Col>

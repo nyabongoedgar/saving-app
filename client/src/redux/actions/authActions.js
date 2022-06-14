@@ -25,14 +25,15 @@ export const loginUser =
   };
 
 export const registerUser =
-  ({ username, password }) =>
+  ({ email, password }, callBack) =>
   async (dispatch) => {
     dispatch(actions.registerUserInit());
-    const body = { username, password };
+    const body = { email, password };
     try {
       await axiosInstance.post("/api/v1/users/register", body);
       dispatch(actions.registerUserSuccess());
       notify("success", "Account successfully register");
+      callBack && callBack();
     } catch (error) {
       if (error.response) {
         dispatch(actions.registerUserError(error.response.data));

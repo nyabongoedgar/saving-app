@@ -75,6 +75,7 @@ const Login = () => {
                 name="password"
                 placeholder="Enter your password"
                 className="login-form-input"
+                autoComplete="new-password"
               />
             </Form.Item>
 
@@ -86,9 +87,11 @@ const Login = () => {
                 disabled={loading}
               />
             </Form.Item>
-            <Link to="/register">
-              <span className="bottom-text">Register</span>
-            </Link>
+            <div className="layout horizontal center-justified center-center">
+              <Link to="/register">
+                <span className="bottom-text">Register</span>
+              </Link>
+            </div>
           </Form>
         </div>
       </Col>

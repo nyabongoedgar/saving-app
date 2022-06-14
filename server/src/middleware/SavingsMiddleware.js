@@ -1,10 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 
-//rewrite logic with a library
-
-
 const { Joi } = require('express-validation');
+const { DateTime } = require('luxon');
 const SavingsModel = require('../models/SavingsModel');
 
 const savingsValidation = {
@@ -17,45 +15,41 @@ const savingsValidation = {
 
 const validateSavingsDates = async (req, res, next) => {
   const { date } = req.body;
-  const forwardedDate = new Date(new Date(date).setHours(0, 0, 0, 0)).getTime() + 86400000;
-  const dateInCheck = new Date(forwardedDate);
-  const ms = new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 172800000;
-  const tomorrow = new Date(ms);
-  const _ms = new Date(new Date().setHours(14, 59, 59, 999)).getTime() - 43200000;
-  const yesterday = new Date(_ms);
+  const tomorrow = DateTime.local().plus({ days: 1 });
+  const yesterday = DateTime.local().plus({ days: -1 });
+  const today = DateTime.local();
+  const dateToCheck = new Date(date).toISOString();
 
   // tomorrow should not be greater or equal to the date in check
-  if (+dateInCheck === +tomorrow || +dateInCheck > +tomorrow) {
+  if (
+    +DateTime.fromISO(dateToCheck).startOf('day') === +DateTime.fromISO(tomorrow).startOf('day')
+    || DateTime.fromISO(dateToCheck).startOf('day') > DateTime.fromISO(tomorrow).startOf('day')
+  ) {
     return res.status(400).json({
       message: 'You cannot deposit to your savings account for a future date',
     });
   }
 
-  if (dateInCheck <= yesterday) {
+  if (DateTime.fromISO(dateToCheck).startOf('day') <= DateTime.fromISO(yesterday).startOf('day')) {
     return res.status(400).json({
       message: 'You cannot make a deposit for a past date',
     });
   }
 
-  const today = new Date(
-    new Date(new Date().setHours(0, 0, 0, 0)).getTime() + 86400000,
-  );
-
-  console.log(today, 'todat')
   // make sure no record for today exists
   const saving = await SavingsModel.findOne({
-    date: { $lte: today },
+    date: {
+      $gte: DateTime.fromISO(today).startOf('day').toJSDate(),
+      $lt: DateTime.fromISO(tomorrow).startOf('day').toJSDate(),
+    },
     userId: req.userId,
   });
 
-  // we have got to make sure that the dateInCheck should not be yesterday or anyother day
-  console.log(saving, 'saving')
   if (saving) {
     return res.status(400).json({
       message: 'You can only deposit to your savings account once a day',
     });
   }
-  req.body.date = forwardedDate;
   next();
 };
 
