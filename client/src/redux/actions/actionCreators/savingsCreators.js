@@ -18,13 +18,13 @@ export const getSavingsInit = () => ({
     type: actionTypes.GET_SAVINGS.INIT,
 });
   
-  export const getSavingsSuccess = (payload) => ({
+export const getSavingsSuccess = (payload) => ({
     type: actionTypes.GET_SAVINGS.SUCCESS,
     payload,
-  });
+});
   
-  export const getSavingsError = (error) => ({
+export const getSavingsError = (error) => ({
     type: actionTypes.GET_SAVINGS.ERROR,
     payload: error,
-  });
+});
   

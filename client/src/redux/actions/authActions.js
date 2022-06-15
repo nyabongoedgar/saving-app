@@ -6,9 +6,7 @@ export const loginUser =
   ({ email, password }) =>
   async (dispatch) => {
     dispatch(actions.loginUserInit());
-
     const body = { email, password };
-    console.log(body, 'body')
     try {
       const res = await axiosInstance.post("/api/v1/users/authenticate", body);
       localStorage.setItem("token", res.data.token);
