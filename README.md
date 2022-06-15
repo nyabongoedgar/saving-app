@@ -1,5 +1,7 @@
 # Backend
 
+## Set up environment variables 
+
 ## To run locally
 ```
 $ cd server
@@ -13,6 +15,9 @@ $ npm run test
 ```
 
 # Frontend 
+
+## Set up environment variables
+
 ## To run locally
 ```
 $ cd client
